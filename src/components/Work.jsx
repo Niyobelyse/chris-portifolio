@@ -1,65 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { data } from "../data/data.js";
 
-
 const Work = () => {
+  const project = data;
 
-    // projects file
-    const project = data;
-    //setProject(data);
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleViewCertificate = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div name='work' className='w-full md:h-screen text-gray-300 bg-[#0a192f]'>
       <div className='max-w-[1000px] mx-auto p-4 flex flex-col justify-center w-full h-full'>
         <div className='pb-8 mt-24'>
           <p className='text-4xl font-bold inline border-b-4 text-gray-300 border-pink-600'>
-            Work
+            Certificates
           </p>
-          <p className='py-6'>// Check out some of my recent projects</p>
+          <p className='py-6'>Check out some of my recent certificates</p>
         </div>
 
-{/* container for projects */}
-<div className="grid sm:grid-cols-2 py-20 md:grid-cols-3 gap-4">
-          
-          {/* Gird Item */}
-          {project.map((item, index) => (
-  <div
-    key={index}
-    style={{ backgroundImage: `url(${item.image})` }}
-    className="shadow-lg shadow-[#040c16] group container rounded-md 
-              flex justify-center text-center items-center mx-auto content-div "
-  >
-    {/* Hover effect for images */}
-    <div className="opacity-0 group-hover:opacity-100 ">
-      <span className="text-2xl font bold text-white tracking-wider ">
-        {item.name}
-      </span>
-      <div className="pt-8 text-center ">
-        {/* eslint-disable-next-line */}
-        <a href={item.github} target="_blank">
-          <button
-            className="text-center rounded-lg px-4 py-3 m-2
-                       bg-white text-gray-700 font-bold text-lg"
+        {/* Container for certificates */}
+        <div className="grid sm:grid-cols-2 py-20 md:grid-cols-3 gap-4">
+          <div
+            className="relative cursor-pointer"
+            onClick={handleViewCertificate}
           >
-            Code
-          </button>
-        </a>
-        {/* eslint-disable-next-line */}
-        <a href={item.live} target="_blank">
-          <button
-            className="text-center rounded-lg px-4 py-3 m-2
-                       bg-white text-gray-700 font-bold text-lg"
-          >
-            Live
-          </button>
-        </a>
-      </div>
-    </div>
-  </div>
-))}
+            <img
+              src="/NetCard.jpg"
+              alt="NetCard Certificate"
+              className="rounded-lg hover:scale-105 duration-300"
+            />
+            <p className="absolute bottom-0 left-0 bg-gray-900 bg-opacity-50 text-white text-sm px-2 py-1 w-full text-center">
+              View Certificate
+            </p>
+          </div>
+        </div>
 
-
-</div>
+        {/* Modal for viewing certificate */}
+        {isModalOpen && (
+          <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex justify-center items-center z-50">
+            <div className="relative bg-white rounded-lg shadow-lg p-4 w-3/4 md:w-1/2">
+              <img
+                src="/NetCard.jpg"
+                alt="NetCard Certificate"
+                className="rounded-lg"
+              />
+              <button
+                onClick={handleCloseModal}
+                className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
